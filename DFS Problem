@@ -1,0 +1,10 @@
+graph={'A':['B','C'],'B':['D','E'],'C':['F'],'D':[],'E':['F'],'F':[]}
+
+def dfs(g,node,vis=None):
+    vis=vis or set()
+    vis.add(node)
+    for nbr in g[node]:
+        if nbr not in vis: dfs(g,nbr,vis)
+    return vis
+
+print(dfs(graph,'A'))
