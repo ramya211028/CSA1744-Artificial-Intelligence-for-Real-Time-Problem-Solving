@@ -1,0 +1,31 @@
+from collections import deque
+
+def valid(s):
+    m1,c1,_,m2,c2,_=s
+    return all(v>=0 for v in (m1,c1,m2,c2)) and (m1==0 or m1>=c1) and (m2==0 or m2>=c2)
+
+def succ(s):
+    m1,c1,b,m2,c2,d=s
+    moves=[]
+    for i in range(3):
+        for j in range(3):
+            if 1<=i+j<=2:
+                if d: new=(m1-i,c1-j,0,m2+i,c2+j,0)
+                else: new=(m1+i,c1+j,1,m2-i,c2-j,1)
+                if valid(new): moves.append(new)
+    return moves
+
+def bfs():
+    start,goal=(3,3,1,0,0,1),(0,0,0,3,3,0)
+    q,seen=deque([(start,[start])]),set()
+    while q:
+        s,path=q.popleft()
+        if s==goal: return path
+        if s in seen: continue
+        seen.add(s)
+        for nxt in succ(s): q.append((nxt,path+[nxt]))
+    return []
+
+sol=bfs()
+print("Solution:")
+for st in sol: print(st)
