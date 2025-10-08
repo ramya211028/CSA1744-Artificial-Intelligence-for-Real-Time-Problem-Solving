@@ -1,0 +1,66 @@
+from queue import PriorityQueue
+goal_state = (1, 2, 3,
+              4, 5, 6,
+              7, 8, 0)  
+def heuristic(state):
+    distance = 0
+    for i in range(3):
+        for j in range(3):
+            tile = state[i * 3 + j]
+            if tile != 0:
+                x, y = (tile - 1) // 3, (tile - 1) % 3
+                distance += abs(x - i) + abs(y - j)
+    return distance
+def successors(state):
+    succ = []
+    i = state.index(0) 
+    if i % 3 != 0:
+        new_state = list(state)
+        new_state[i], new_state[i - 1] = new_state[i - 1], new_state[i]
+        succ.append(tuple(new_state))
+    if i % 3 != 2:
+        new_state = list(state)
+        new_state[i], new_state[i + 1] = new_state[i + 1], new_state[i]
+        succ.append(tuple(new_state))
+    if i // 3 != 0:
+        new_state = list(state)
+        new_state[i], new_state[i - 3] = new_state[i - 3], new_state[i]
+        succ.append(tuple(new_state))
+    if i // 3 != 2:
+        new_state = list(state)
+        new_state[i], new_state[i + 3] = new_state[i + 3], new_state[i]
+        succ.append(tuple(new_state))
+
+    return succ
+def solve(initial_state):
+    frontier = PriorityQueue()
+    frontier.put((heuristic(initial_state), 0, initial_state, [initial_state]))  # (priority, cost, state, path)
+    explored = set()
+
+    while not frontier.empty():
+        _, cost, state, path = frontier.get()
+
+        if state == goal_state:
+            return path 
+        explored.add(state)
+        for succ in successors(state):
+            if succ not in explored:
+                new_cost = cost + 1
+                priority = new_cost + heuristic(succ)
+                frontier.put((priority, new_cost, succ, path + [succ]))
+    return None 
+initial_state = (2, 8, 3,
+                 1, 6, 4,
+                 7, 0, 5)
+
+solution = solve(initial_state)
+
+if solution:
+    print("The puzzle is solvable! Solution steps:")
+    for step in solution:
+        print(step[0:3])
+        print(step[3:6])
+        print(step[6:9])
+        print()
+else:
+    print("The puzzle is unsolvable.")
