@@ -1,0 +1,28 @@
+edge(a, b, 1).
+edge(a, c, 2).
+edge(b, d, 4).
+edge(c, d, 1).
+edge(d, e, 5).
+
+heuristic(e, 0).
+heuristic(d, 1).
+heuristic(c, 3).
+heuristic(b, 2).
+heuristic(a, 4).
+
+best_first(Start, Goal, Path) :-
+    bfs([[Start]], Goal, Path).
+
+bfs([[Goal|Rest]|_], Goal, [Goal|Rest]).
+bfs([CurrentPath|Others], Goal, Path) :-
+    CurrentPath = [CurrentNode|_],
+    findall([NextNode|CurrentPath],
+            (edge(CurrentNode, NextNode, _),
+             \+ member(NextNode, CurrentPath)),
+            NewPaths),
+    append(Others, NewPaths, AllPaths),
+    sort(AllPaths, Sorted),
+    bfs(Sorted, Goal, Path).
+
+% Example:
+% ?- best_first(a, e, P).
