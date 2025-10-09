@@ -1,0 +1,8 @@
+planet(mercury, 0.39).
+planet(venus, 0.72).
+planet(earth, 1.00).
+planet(mars, 1.52).
+planet(jupiter, 5.20).
+
+% Example:
+% ?- planet(X, D), D < 1. → X = mercury ; X = venus
