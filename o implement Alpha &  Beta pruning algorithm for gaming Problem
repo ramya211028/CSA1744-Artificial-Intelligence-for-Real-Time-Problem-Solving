@@ -1,0 +1,17 @@
+def evaluate(state):
+    return score_of(state)
+def alpha_beta(state, depth, alpha, beta, player):
+    if depth == 0 or game_over(state):
+        return evaluate(state)
+    if player == "X":  
+        for move in get_possible_moves(state):
+            score = alpha_beta(make_move(state, move, "O"), depth - 1, alpha, beta, "O")
+            alpha = max(alpha, score)
+            if beta <= alpha: break
+        return alpha
+    else:  
+        for move in get_possible_moves(state):
+            score = alpha_beta(make_move(state, move, "X"), depth - 1, alpha, beta, "X")
+            beta = min(beta, score)
+            if beta <= alpha: break
+        return beta
