@@ -1,0 +1,7 @@
+fruit(apple, red).
+fruit(banana, yellow).
+fruit(grape, green).
+fruit(grape, purple).
+
+% Example:
+% ?- fruit(grape, X). → X = green ; X = purple
