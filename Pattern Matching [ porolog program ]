@@ -1,0 +1,5 @@
+match([H|_], H).
+match([_|T], X) :- match(T, X).
+
+% Example:
+% ?- match([a,b,c], b). → true
