@@ -1,0 +1,17 @@
+parent(john, mary).
+parent(john, david).
+parent(mary, susan).
+parent(david, sam).
+
+male(john).
+male(david).
+male(sam).
+female(mary).
+female(susan).
+
+grandparent(X, Y) :-
+    parent(X, Z),
+    parent(Z, Y).
+
+% Example:
+% ?- grandparent(john, X). → X = susan ; X = sam
