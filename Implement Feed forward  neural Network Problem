@@ -1,0 +1,25 @@
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.optimizers import SGD
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from tensorflow.keras.utils import to_categorical
+
+# Load and prepare data
+X, y = load_iris(return_X_y=True)
+y = to_categorical(y)  # One-hot encode labels
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Build model
+model = Sequential([
+    Dense(10, input_dim=4, activation='relu'),
+    Dense(3, activation='softmax')
+])
+
+# Compile and train
+model.compile(loss='categorical_crossentropy', optimizer=SGD(learning_rate=0.01), metrics=['accuracy'])
+model.fit(X_train, y_train, epochs=50, batch_size=10, verbose=0)
+
+# Evaluate
+acc = model.evaluate(X_test, y_test, verbose=0)[1]
+print(f"Accuracy: {acc * 100:.2f}%")
