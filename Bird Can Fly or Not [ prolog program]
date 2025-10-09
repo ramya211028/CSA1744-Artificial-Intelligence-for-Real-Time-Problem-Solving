@@ -1,0 +1,11 @@
+bird(sparrow).
+bird(parrot).
+bird(penguin).
+
+cannot_fly(penguin).
+
+fly(X) :- bird(X), \+ cannot_fly(X).
+
+% Example:
+% ?- fly(sparrow). → true
+% ?- fly(penguin). → false
