@@ -1,0 +1,11 @@
+teaches(mr_smith, math, c101).
+teaches(ms_jane, physics, c102).
+teaches(dr_rao, chemistry, c103).
+
+student(john, c101).
+student(alice, c102).
+student(ravi, c103).
+
+% Example:
+% ?- teaches(T, S, C), student(john, C).
+% T = mr_smith, S = math, C = c101
