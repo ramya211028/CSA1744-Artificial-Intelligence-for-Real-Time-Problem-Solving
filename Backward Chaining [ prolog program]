@@ -1,0 +1,6 @@
+goal(X) :- pre1(X), pre2(X).
+pre1(x).
+pre2(x).
+
+% Example:
+% ?- goal(x). → true
