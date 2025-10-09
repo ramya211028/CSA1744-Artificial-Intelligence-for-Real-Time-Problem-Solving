@@ -1,0 +1,14 @@
+location(monkey, floor).
+location(banana, ceiling).
+location(box, floor).
+
+climb(monkey, box).
+
+can_reach(monkey) :-
+    location(monkey, floor),
+    location(box, floor),
+    climb(monkey, box),
+    location(banana, ceiling).
+
+% Example:
+% ?- can_reach(monkey). → true
