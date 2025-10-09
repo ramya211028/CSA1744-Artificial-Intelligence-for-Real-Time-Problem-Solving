@@ -1,0 +1,8 @@
+disease(diabetes).
+disease(bp).
+
+suggest(diabetes, 'Low sugar diet').
+suggest(bp, 'Low salt diet').
+
+% Example:
+% ?- suggest(diabetes, X). → X = 'Low sugar diet'
