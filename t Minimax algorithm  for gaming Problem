@@ -1,0 +1,10 @@
+def evaluate(state):
+    # Return positive if X winning, negative if O winning
+    return score_of(state)
+
+def minimax(state, depth, player):
+    if depth == 0 or game_over(state):
+        return evaluate(state)
+    scores = [minimax(make_move(state, m, "O" if player == "X" else "X"), depth - 1, "O" if player == "X" else "X")
+              for m in get_possible_moves(state)]
+    return max(scores) if player == "X" else min(scores)
