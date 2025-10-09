@@ -1,0 +1,11 @@
+symptom(john, fever).
+symptom(john, cough).
+symptom(john, fatigue).
+
+disease(flu) :-
+    symptom(john, fever),
+    symptom(john, cough),
+    symptom(john, fatigue).
+
+% Example:
+% ?- disease(flu). → true
